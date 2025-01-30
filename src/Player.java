@@ -41,33 +41,44 @@ public class Player extends Entity{
 		}
 	}
 
-  public void update(){
-    if(keyH.upPressed == true){
-      direction = "up";
-      y -= speed;
-    }else if(keyH.downPressed == true){
-      direction = "down";
-      y += speed;
-    }else if(keyH.leftPressed == true){
-      direction = "left";
-      x -= speed;
-    }else if(keyH.rightPressed == true){
-      direction = "right";
-      x += speed;
-    }
-    
-    //SPRITE CHANGER
-			//update method is called 60 times per sec
-    spriteCounter++;
-		if(spriteCounter > 12) {  //image changes every 10 frames
-			if(spriteNum == 1) {
-				spriteNum = 2;
-			}else if(spriteNum == 2) {
-				spriteNum = 1;
+  
+  public void update() {
+		//in JAVA, TOP LEFT IS (0,0) AND X INCREASES TO RIGHT AND Y INCREASES BOTTOM
+		//we want the sprites to update only when keys are pressed
+		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+      
+			if(keyH.upPressed == true) {
+				direction = "up";
+				y -= speed;
 			}
-			spriteCounter = 0;
+			else if(keyH.downPressed == true) {
+				direction = "down";
+        y += speed;
+			}
+			else if(keyH.leftPressed == true) {
+				direction = "left";
+        x -= speed;
+			}
+			else if(keyH.rightPressed == true) {
+				direction = "right";
+        x += speed;
+			}
+				
+			//SPRITE CHANGER
+			//update method is called 60 times per sec
+			spriteCounter++;
+			if(spriteCounter > 12) {  //image changes every 10 frames
+				if(spriteNum == 1) {
+					spriteNum = 2;
+				}else if(spriteNum == 2) {
+					spriteNum = 1;
+				}
+				spriteCounter = 0;
+			}
 		}
-  }
+		
+	}
+  
 
   public void draw(Graphics2D g2){
     
