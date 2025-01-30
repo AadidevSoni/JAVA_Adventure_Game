@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -16,8 +17,14 @@ public class Player extends Entity{
 		this.gp = gp;
 		this.keyH = keyH;
 
-    screenX = gp.screenWidth/2 - (gp.tileSize/2);;  //the player positions screen position does not change
-		screenY = gp.screenHeight/2 - (gp.tileSize/2);;
+    screenX = gp.screenWidth/2 - (gp.tileSize/2);  //the player positions screen position does not change
+		screenY = gp.screenHeight/2 - (gp.tileSize/2);
+
+    solidArea = new Rectangle();  //x,y,width,height
+		solidArea.x = 8;
+		solidArea.y = 16;
+		solidArea.width = 32;
+		solidArea.height = 32;
 
     setDefaultValues();
     getPlayerImage();
@@ -27,7 +34,7 @@ public class Player extends Entity{
     //Player's position on the world map
 		worldX = gp.tileSize * 23;  //to get centre of world
 		worldY = gp.tileSize * 21;
-		speed = 5;
+		speed = 7;
     direction = "down";
 	}
 
@@ -56,19 +63,37 @@ public class Player extends Entity{
 
 			if(keyH.upPressed == true) {
 				direction = "up";
-				worldY -= speed;
+				//moved to collision checker
 			}
 			else if(keyH.downPressed == true) {
 				direction = "down";
-        worldY += speed;
 			}
 			else if(keyH.leftPressed == true) {
 				direction = "left";
-        worldX -= speed;
 			}
 			else if(keyH.rightPressed == true) {
 				direction = "right";
-        worldX += speed;
+			}
+
+      //COLLSION CHECKER
+			collisionOn = false;
+			gp.cChecker.checkTile(this); //passing player as the entity
+			
+			if(collisionOn == false) {
+				switch(direction) {
+				case "up":
+					worldY -= speed;
+					break;
+				case "down":
+					worldY += speed;
+					break;
+				case "left":
+					worldX -= speed;
+					break;
+				case "right":
+					worldX += speed;
+					break;
+				}
 			}
 				
 			//SPRITE CHANGER

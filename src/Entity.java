@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -13,5 +14,8 @@ public class Entity {
   //walking animation
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
+
+  public Rectangle solidArea; //create invisible rectangle
+	public boolean collisionOn = false;
   
 }

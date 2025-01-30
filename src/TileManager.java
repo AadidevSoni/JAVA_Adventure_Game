@@ -30,15 +30,18 @@ public class TileManager{
 			
 			tile[1] = new Tile();
 			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/wall.png"));
+      tile[1].collision = true;
 			
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/water01.png"));
+      tile[2].collision = true;
 			
 			tile[3] = new Tile();
 			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/earth.png"));
 			
 			tile[4] = new Tile();
 			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tree.png"));
+      tile[4].collision = true;
 			
 			tile[5] = new Tile();
 			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/sand.png"));
@@ -108,7 +111,7 @@ public class TileManager{
 			   worldY - gp.tileSize< gp.player.worldY + gp.player.screenY) {
 				g2.drawImage(tile[tileNum].image,screenX,screenY,gp.tileSize,gp.tileSize,null);
 			}
-      
+
       worldCol++;
 
       if(worldCol == gp.maxWorldCol){

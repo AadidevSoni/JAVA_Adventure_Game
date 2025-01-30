@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
   Player player = new Player(this, keyH);
   int FPS = 60;
   TileManager tileM = new TileManager(this);
+  CollisionChecker cChecker = new CollisionChecker(this); 
 	
   //set player's default position - deleted
 	//constructor
