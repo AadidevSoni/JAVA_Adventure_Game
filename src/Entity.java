@@ -2,7 +2,8 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
 
-  public int x,y;
+  //we changed x and y for better understanding
+  public int worldX,worldY;
   public int speed;
 
   //we use bufferImage to store image data
