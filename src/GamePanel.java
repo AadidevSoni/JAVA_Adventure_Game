@@ -20,12 +20,8 @@ public class GamePanel extends JPanel implements Runnable{
   Thread gameThread; //Concept of time - it keeps the game running and requires you to implement runnable
 	//when we start this game thread, it automatically calls the run method as it is from the runnable that we implemented
   Player player = new Player(this, keyH);
-
-  //set Player's default variables;
-  int playerX = 100;
-  int playerY = 100;
-  int playerSpeed = 5;
   int FPS = 60;
+  TileManager tileM = new TileManager(this);
 	
   //set player's default position - deleted
 	//constructor
@@ -94,6 +90,9 @@ public class GamePanel extends JPanel implements Runnable{
     super.paintComponent(g); //this is how we make this method work
 
     Graphics2D g2 = (Graphics2D)g;  //we convert brush to graphics 2d which has more features for drawing
+
+    //tile should be draw before player otherwise tiles will cover player
+		tileM.draw(g2);
     
     //moved to Player class draw method
     player.draw(g2);
