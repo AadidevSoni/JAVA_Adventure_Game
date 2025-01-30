@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
   KeyHandler keyH = new KeyHandler();
   Thread gameThread; //Concept of time - it keeps the game running and requires you to implement runnable
 	//when we start this game thread, it automatically calls the run method as it is from the runnable that we implemented
+  Player player = new Player(this, keyH);
 
   //set Player's default variables;
   int playerX = 100;
@@ -39,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
   public void startGameThread() {
       gameThread = new Thread(this);   //instantiate a game thread to the gamePanel class
       gameThread.start();  //calls the run method
-    }
+  }
 
   @Override
   public void run() {
@@ -84,16 +85,8 @@ public class GamePanel extends JPanel implements Runnable{
 
   public void update(){
 
-    if(keyH.upPressed == true){
-      playerY -= playerSpeed;
-    }else if(keyH.downPressed == true){
-      playerY += playerSpeed;
-    }else if(keyH.leftPressed == true){
-      playerX -= playerSpeed;
-    }else if(keyH.rightPressed == true){
-      playerX += playerSpeed;
-    }
-
+    //Moved to update in Player
+    player.update();
   }
 
   //paintComponent is a built in method in java to draw on the screen
@@ -101,8 +94,9 @@ public class GamePanel extends JPanel implements Runnable{
     super.paintComponent(g); //this is how we make this method work
 
     Graphics2D g2 = (Graphics2D)g;  //we convert brush to graphics 2d which has more features for drawing
-    g2.setColor(Color.WHITE);
-    g2.fillRect(playerX, playerY, tileSize, tileSize);
+    
+    //moved to Player class draw method
+    player.draw(g2);
 
     g2.dispose(); //releases any system resource it is using
   }
