@@ -14,10 +14,11 @@ public class TileManager{
   public TileManager(GamePanel gp){
     this.gp = gp;
     tile = new Tile[10]; //10 types of tile
-    mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+    //now larger loop
+    mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];  //now that map size increased, the screenrow and col changes to world's
 
     getTileImage();
-    loadMap("/map01.txt");
+    loadMap("./world01.txt");
   }
 
   public void getTileImage() {
@@ -58,11 +59,11 @@ public class TileManager{
 			int col = 0;
 			int row = 0;
 			
-			while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
+			while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
 				
 				String line = br.readLine();
 				
-				while(col < gp.maxScreenCol) {
+				while(col < gp.maxWorldCol) {
 					
 					String numbers[] = line.split(" ");
 					
@@ -72,7 +73,7 @@ public class TileManager{
 					col++;
 					
 				}
-				if(col == gp.maxScreenCol) {
+				if(col == gp.maxWorldCol) {
 				  col = 0;
 					row++;
 				}
@@ -85,27 +86,32 @@ public class TileManager{
 	
 	}
 
-  public void draw(Graphics2D g2){
+  public void draw(Graphics2D g2) {
+		
+		//deleted all x and y to implement camera functioj
+		int worldCol = 0;
+		int worldRow = 0;
+		
+		
+		while(worldCol<gp.maxWorldCol && worldRow<gp.maxWorldRow) {
+			
+			int tileNum = mapTileNum[worldCol][worldRow];  //if we get 0, it draws grass if 1, then wall etc
 
-    int col = 0;
-    int row = 0;
-    int x = 0;
-    int y = 0;
+      int worldX = worldCol * gp.tileSize; //position on the map
+			int worldY = worldRow * gp.tileSize;
+			int screenX = worldX - gp.player.worldX + gp.player.screenX;  //where on screen to draw it
+			int screenY = worldY - gp.player.worldY + gp.player.screenY;
+			
+			g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+      worldCol++;
 
-    while(col < gp.maxScreenCol && row < gp.maxScreenRow){
-
-      int tileNum = mapTileNum[col][row];
-
-      g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-      col++;
-      x += gp.tileSize;
-      if(col == gp.maxScreenCol){
-        col = 0;
-        x = 0;
-        row++;
-        y += gp.tileSize;
+      if(worldCol == gp.maxWorldCol){
+        worldCol = 0;
+        worldRow++;
       }
-    }
-  }
+			
+		}
+		
+	}
   
 }

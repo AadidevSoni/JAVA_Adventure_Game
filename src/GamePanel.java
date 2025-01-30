@@ -16,6 +16,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenWidth = maxScreenCol * tileSize;  //16*48 = 768 pixels
 	public final int screenHeight = maxScreenRow * tileSize;  //48x12 = 576 pixels
 
+  //WORLD SETTINGS
+	public final int maxWorldCol = 50;
+	public final int maxWorldRow = 50;
+	public final int worldWidth = maxWorldCol * tileSize;
+	public final int worldHeight = maxWorldRow * tileSize;
+
   KeyHandler keyH = new KeyHandler();
   Thread gameThread; //Concept of time - it keeps the game running and requires you to implement runnable
 	//when we start this game thread, it automatically calls the run method as it is from the runnable that we implemented
