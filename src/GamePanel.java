@@ -29,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable{
   int FPS = 60;
   TileManager tileM = new TileManager(this);
   CollisionChecker cChecker = new CollisionChecker(this); 
+  public SuperObject obj[] = new SuperObject[10];  //we can dispaly upto 10 objects at the same time
+  public AssetSetter aSetter = new AssetSetter(this);
 	
   //set player's default position - deleted
 	//constructor
@@ -38,6 +40,11 @@ public class GamePanel extends JPanel implements Runnable{
     this.setDoubleBuffered(true);
     this.addKeyListener(keyH);
     this.setFocusable(true);
+  }
+
+  //all set up stuffs method    we want to call these methods before the actua lagem starts
+  public void setupGame(){
+    aSetter.setObject();
   }
   
   public void startGameThread() {
@@ -100,6 +107,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     //tile should be draw before player otherwise tiles will cover player
 		tileM.draw(g2);
+
+    //OBJECT
+    for(int i=0;i<obj.length;i++){
+      if(obj[i] != null){
+        obj[i].draw(g2,this);
+      }
+    }
     
     //moved to Player class draw method
     player.draw(g2);
